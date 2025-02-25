@@ -23,7 +23,7 @@ const Header = () => {
           </li> */}
         </ul>
         <form className="d-flex">
-          <button className="btn btn-outline-success" type="submit">Search</button>
+          <button className="btn btn-outline-danger" type="submit">Log-out</button>
         </form>
       </div>
     </div>

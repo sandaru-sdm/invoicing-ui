@@ -6,7 +6,7 @@ import ResetPassword from "./pages/ResetPassword";
 import EmailNotification from "./pages/EmailNotification";
 import Dashboard from "./pages/Dashboard";
 import CustomerRegister from "./pages/Customer/CustomerRegister";
-import CustomerTable from "./components/Tables/CustomerTable";
+import CustomerTable from "./pages/Customer/CustomerTable";
 import Customer from "./pages/Customer/Customer";
 
 function App() {
