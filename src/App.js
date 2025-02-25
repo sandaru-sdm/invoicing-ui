@@ -5,6 +5,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import EmailNotification from "./pages/EmailNotification";
 import Dashboard from "./pages/Dashboard";
+import CustomerRegister from "./pages/Customer/CustomerRegister";
+import CustomerTable from "./components/Tables/CustomerTable";
+import Customer from "./pages/Customer/Customer";
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/customer" element={<Customer />} />
+        <Route path="/customer-register" element={<CustomerRegister />} />
+        <Route path="/customer-table" element={<CustomerTable />} />
         <Route path="/email-notification" element={<EmailNotification />} />
       </Routes>
     </Router>
