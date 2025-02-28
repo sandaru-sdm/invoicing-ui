@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import CustomerRegister from "./pages/Customer/CustomerRegister";
 import CustomerTable from "./pages/Customer/CustomerTable";
 import Customer from "./pages/Customer/Customer";
+import CustomerUpdate from "./pages/Customer/CustomerUpdate";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/customer-register" element={<CustomerRegister />} />
         <Route path="/customer-table" element={<CustomerTable />} />
         <Route path="/email-notification" element={<EmailNotification />} />
+        <Route path="/update-customer/:id" element={<CustomerUpdate />} />
       </Routes>
     </Router>
   );
