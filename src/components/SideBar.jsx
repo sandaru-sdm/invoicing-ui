@@ -37,7 +37,21 @@ const Sidebar = () => {
             >
               Customers
             </NavLink>
-          </li>     
+          </li>  
+
+          <li className="nav-item fs-5 btn btn-outline-success m-2">
+            <NavLink
+              className="nav-link"
+              to="/payment-type"
+              activeClassName="active"
+              style={({ isActive }) => ({
+                color: isActive ? "green" : "",
+              })}
+            >
+              Payment Types
+            </NavLink>
+          </li>
+
         </ul>
       </div>
     </nav>
