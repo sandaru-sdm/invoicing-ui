@@ -1,41 +1,72 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../../components/Header.jsx";
 import Sidebar from "../../components/SideBar.jsx";
 import Footer from "../../components/Footer.jsx";
-import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
-import { useLocation } from "react-router-dom";
 
-const AddPaymentType = () => {
+const UpdateDetail = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [alert, setAlert] = useState({ type: "", message: "" });
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  const [submit, setSubmit] = useState(false);
+  const location = useLocation();
 
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    console.error("No token found. Redirecting to login...");
-    navigate("/login");
-    return;
-  }
+  useEffect(() => {
+    if (!token) {
+      console.error("No token found. Redirecting to login...");
+      navigate("/login");
+    }
+  }, [token, navigate]);
+
+  useEffect(() => {
+    const fetchDetail = async () => {
+      try {
+        const response = await axios.get(
+          `${apiBaseUrl}/test/api/detail/id/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const detail = response.data;
+        console.log(detail);
+
+        setName(detail.name);
+      } catch (error) {
+        console.error("Error fetching detail:", error);
+        setAlert({
+          type: "danger",
+          message: "Failed to fetch detail data.",
+        });
+        setTimeout(() => {
+          navigate("/details");
+        }, 2000);
+      }
+    };
+
+    if (id && token) fetchDetail();
+  }, [id, apiBaseUrl, token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmit(true);
 
     if (!name.trim()) {
-      setAlert({ type: "danger", message: "Payment Type Name is required." });
+      setAlert({ type: "danger", message: "Detail Name is required." });
       return;
     }
 
     try {
-      const response = await axios.post(
-        `${apiBaseUrl}/test/api/payment-type/save`,
+      const response = await axios.put(
+        `${apiBaseUrl}/test/api/detail/` + id,
         { name },
         {
           headers: {
@@ -46,14 +77,14 @@ const AddPaymentType = () => {
       );
 
       const successMessage =
-        response.data.message || "Payment Type Saved successfully!";
+        response.data.message || "Detail updated successfully!";
       setAlert({ type: "success", message: successMessage });
 
       setTimeout(() => {
-        navigate("/payment-type");
+        navigate("/details");
       }, 2000);
     } catch (error) {
-      let errorMessage = "Failed to save paymnet type. Please try again.";
+      let errorMessage = "Failed to update Detail. Please try again.";
       if (error.response) {
         errorMessage = error.response.data.message || errorMessage;
       }
@@ -70,12 +101,12 @@ const AddPaymentType = () => {
           <div className="mt-5 pt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4">
             {/* Breadcrumbs Component */}
             <Breadcrumbs
-              title="Save Payment Type"
+              title="Update Detail"
               breadcrumbs={[
                 { label: "Home", path: "/dashboard" },
-                { label: "Payment Types", path: "/payment-type" },
+                { label: "Details", path: "/details" },
                 {
-                  label: "Save Payment Type",
+                  label: "Update Details",
                   path: location.pathname,
                   active: true,
                 },
@@ -88,7 +119,7 @@ const AddPaymentType = () => {
               <div className="col-md-6">
                 <div className="card card-primary card-outline mb-4">
                   <div className="card-header">
-                    <h4 className="card-title">Save Payment Types</h4>
+                    <h4 className="card-title">Update Detail</h4>
                   </div>
                   <div className="card-body">
                     {alert.message && (
@@ -100,7 +131,7 @@ const AddPaymentType = () => {
                     <form onSubmit={handleSubmit}>
                       <div className="mb-3">
                         <label htmlFor="name" className="form-label">
-                          Payment Type Name
+                          Detail Name
                         </label>
                         <input
                           className="form-control"
@@ -111,7 +142,10 @@ const AddPaymentType = () => {
                       </div>
 
                       <div className="card-footer d-flex justify-content-center mt-2">
-                        <button type="submit" className="btn btn-primary col-sm-12 mt-3" disabled={submit}>
+                        <button
+                          type="submit"
+                          className="btn btn-primary col-sm-12 mt-3"
+                        >
                           Submit
                         </button>
                       </div>
@@ -128,4 +162,4 @@ const AddPaymentType = () => {
   );
 };
 
-export default AddPaymentType;
+export default UpdateDetail;

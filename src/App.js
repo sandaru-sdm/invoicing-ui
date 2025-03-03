@@ -11,6 +11,9 @@ import CustomerUpdate from "./pages/Customer/CustomerUpdate";
 import PaymentType from "./pages/PaymentType/PaymentTypes";
 import AddPaymentType from "./pages/PaymentType/AddPaymentType";
 import UpdatePaymentType from "./pages/PaymentType/UpdatePaymentType";
+import Details from "./pages/Details/Details";
+import AddDetail from "./pages/Details/AddDetail";
+import UpdateDetail from "./pages/Details/UpdateDetail";
 
 function App() {
   return (
@@ -29,7 +32,11 @@ function App() {
 
         <Route path="/payment-type" element={<PaymentType />} />
         <Route path="/add-payment-type" element={<AddPaymentType />} />
-        <Route path="/update-payment-type/:id" element={<UpdatePaymentType />} />        
+        <Route path="/update-payment-type/:id" element={<UpdatePaymentType />} />      
+
+        <Route path="/details" element={<Details />} />
+        <Route path="/add-detail" element={<AddDetail />} />
+        <Route path="/update-detail/:id" element={<UpdateDetail />} />    
 
       </Routes>
     </Router>

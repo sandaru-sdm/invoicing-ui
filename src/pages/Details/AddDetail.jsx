@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 import { useLocation } from "react-router-dom";
 
-const AddPaymentType = () => {
+const AddDetail = () => {
   const [name, setName] = useState("");
   const [alert, setAlert] = useState({ type: "", message: "" });
   const navigate = useNavigate();
@@ -29,13 +29,13 @@ const AddPaymentType = () => {
     setSubmit(true);
 
     if (!name.trim()) {
-      setAlert({ type: "danger", message: "Payment Type Name is required." });
+      setAlert({ type: "danger", message: "Detail Name is required." });
       return;
     }
 
     try {
       const response = await axios.post(
-        `${apiBaseUrl}/test/api/payment-type/save`,
+        `${apiBaseUrl}/test/api/detail/save`,
         { name },
         {
           headers: {
@@ -46,14 +46,14 @@ const AddPaymentType = () => {
       );
 
       const successMessage =
-        response.data.message || "Payment Type Saved successfully!";
+        response.data.message || "Detail Saved successfully!";
       setAlert({ type: "success", message: successMessage });
 
       setTimeout(() => {
-        navigate("/payment-type");
+        navigate("/details");
       }, 2000);
     } catch (error) {
-      let errorMessage = "Failed to save paymnet type. Please try again.";
+      let errorMessage = "Failed to save Detail. Please try again.";
       if (error.response) {
         errorMessage = error.response.data.message || errorMessage;
       }
@@ -70,12 +70,12 @@ const AddPaymentType = () => {
           <div className="mt-5 pt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4">
             {/* Breadcrumbs Component */}
             <Breadcrumbs
-              title="Save Payment Type"
+              title="Save Detail"
               breadcrumbs={[
                 { label: "Home", path: "/dashboard" },
-                { label: "Payment Types", path: "/payment-type" },
+                { label: "Details", path: "/details" },
                 {
-                  label: "Save Payment Type",
+                  label: "Save Detail",
                   path: location.pathname,
                   active: true,
                 },
@@ -88,7 +88,7 @@ const AddPaymentType = () => {
               <div className="col-md-6">
                 <div className="card card-primary card-outline mb-4">
                   <div className="card-header">
-                    <h4 className="card-title">Save Payment Types</h4>
+                    <h4 className="card-title">Save Detail</h4>
                   </div>
                   <div className="card-body">
                     {alert.message && (
@@ -100,7 +100,7 @@ const AddPaymentType = () => {
                     <form onSubmit={handleSubmit}>
                       <div className="mb-3">
                         <label htmlFor="name" className="form-label">
-                          Payment Type Name
+                          Detail Name
                         </label>
                         <input
                           className="form-control"
@@ -128,4 +128,4 @@ const AddPaymentType = () => {
   );
 };
 
-export default AddPaymentType;
+export default AddDetail;

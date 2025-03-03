@@ -52,6 +52,19 @@ const Sidebar = () => {
             </NavLink>
           </li>
 
+          <li className="nav-item fs-5 btn btn-outline-success m-2">
+            <NavLink
+              className="nav-link"
+              to="/details"
+              activeClassName="active"
+              style={({ isActive }) => ({
+                color: isActive ? "green" : "",
+              })}
+            >
+              Details
+            </NavLink>
+          </li>
+
         </ul>
       </div>
     </nav>

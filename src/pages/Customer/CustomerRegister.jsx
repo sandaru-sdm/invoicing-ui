@@ -15,6 +15,8 @@ const CustomerRegister = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [submit, setSubmit] = useState(false);
+
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const token = localStorage.getItem("token");
 
@@ -36,6 +38,7 @@ const CustomerRegister = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmit(true);
 
     if (!name.trim()) {
       setAlert({ type: "danger", message: "Name is required." });
@@ -159,7 +162,7 @@ const CustomerRegister = () => {
                       </div>
 
                       <div className="card-footer d-flex justify-content-center mt-2">
-                        <button type="submit" className="btn btn-primary col-sm-12 mt-3">
+                        <button type="submit" className="btn btn-primary col-sm-12 mt-3" disabled={submit}>
                           Submit
                         </button>
                       </div>
