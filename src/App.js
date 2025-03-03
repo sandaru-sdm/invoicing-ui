@@ -14,6 +14,12 @@ import UpdatePaymentType from "./pages/PaymentType/UpdatePaymentType";
 import Details from "./pages/Details/Details";
 import AddDetail from "./pages/Details/AddDetail";
 import UpdateDetail from "./pages/Details/UpdateDetail";
+import Services from "./pages/Service/Services";
+import AddService from "./pages/Service/AddService";
+import UpdateService from "./pages/Service/UpdateService";
+import UserRegister from "./pages/User/UserRegister";
+import Users from "./pages/User/Users";
+import UpdateUser from "./pages/User/UpdateUser";
 
 function App() {
   return (
@@ -37,6 +43,14 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/add-detail" element={<AddDetail />} />
         <Route path="/update-detail/:id" element={<UpdateDetail />} />    
+
+        <Route path="/services" element={<Services />} />
+        <Route path="/add-service" element={<AddService />} />
+        <Route path="/update-service/:id" element={<UpdateService />} />   
+
+        <Route path="/users" element={<Users />} />
+        <Route path="/add-user" element={<UserRegister />} />
+        <Route path="/update-user/:id" element={<UpdateUser />} />  
 
       </Routes>
     </Router>

@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import Header from "../../components/Header.jsx";
 import Sidebar from "../../components/SideBar.jsx";
 import Footer from "../../components/Footer.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
-const UpdateCustomer = () => {
+const UpdateUser = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [alert, setAlert] = useState({ type: "", message: "" });
-
   const [submit, setSubmit] = useState(false);
-
-  const location = useLocation();
+  const [showPassword, setShowPassword] = useState(false);
 
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const token = localStorage.getItem("token");
@@ -30,44 +30,29 @@ const UpdateCustomer = () => {
   }, [token, navigate]);
 
   useEffect(() => {
-    const fetchCustomer = async () => {
+    const fetchUser = async () => {
       try {
-        const response = await axios.get(
-          `${apiBaseUrl}/test/api/customer/id/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        const customer = response.data;
-        console.log(customer);
-
-        setName(customer.name);
-        setEmail(customer.email);
-        setMobile(customer.mobile);
+        const response = await axios.get(`${apiBaseUrl}/api/id/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+        const user = response.data;
+        setName(user.name);
+        setEmail(user.email);
+        setPassword(user.password);
+        setRole(user.role);
       } catch (error) {
-        console.error("Error fetching customer:", error);
         setAlert({
-          type: "error",
-          message: "Failed to fetch customer details.",
+          type: "danger",
+          message: error.response?.data?.message || "Failed to fetch user details.",
         });
       }
     };
 
-    if (id && token) fetchCustomer();
+    if (id && token) fetchUser();
   }, [id, apiBaseUrl, token]);
-
-  const isValidEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const isValidSriLankanMobile = (mobile) => {
-    const slMobileRegex = /^(?:\+94|0)(7[01245678])[0-9]{7}$/;
-    return slMobileRegex.test(mobile);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -77,25 +62,17 @@ const UpdateCustomer = () => {
       setAlert({ type: "danger", message: "Name is required." });
       return;
     }
-    if (!isValidEmail(email)) {
-      setAlert({
-        type: "danger",
-        message: "Please enter a valid email address.",
-      });
-      return;
-    }
-    if (!isValidSriLankanMobile(mobile)) {
-      setAlert({
-        type: "danger",
-        message: "Please enter a valid mobile number.",
-      });
+    if (!email.trim()) {
+      setAlert({ type: "danger", message: "Email is required." });
       return;
     }
 
+    const formattedRole = role.toUpperCase();
+
     try {
       const response = await axios.put(
-        `${apiBaseUrl}/test/api/customer/`+ id,
-        { name, email, mobile },
+        `${apiBaseUrl}/api/${id}`,
+        { name, password, email, userRole: formattedRole },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -104,19 +81,19 @@ const UpdateCustomer = () => {
         }
       );
 
-      const successMessage =
-        response.data.message || "Customer updated successfully!";
-      setAlert({ type: "success", message: successMessage });
+      setAlert({ type: "success", message: response.data.message || "User updated successfully!" });
 
       setTimeout(() => {
-        navigate("/customer");
+        navigate("/users");
       }, 2000);
     } catch (error) {
-      let errorMessage = "Failed to update customer. Please try again.";
-      if (error.response) {
-        errorMessage = error.response.data.message || errorMessage;
-      }
-      setAlert({ type: "danger", message: errorMessage });
+      setAlert({
+        type: "danger",
+        message: error.response?.data?.message || "Failed to update user. Please try again.",
+      });
+      setTimeout(() => {
+        navigate("/users");
+      }, 2000);
     }
   };
 
@@ -127,17 +104,12 @@ const UpdateCustomer = () => {
         <div className="row">
           <Sidebar />
           <div className="mt-5 pt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            {/* Breadcrumbs Component */}
             <Breadcrumbs
-              title="Update Customer"
+              title="Update User"
               breadcrumbs={[
                 { label: "Home", path: "/dashboard" },
-                { label: "Customers", path: "/customer" },
-                {
-                  label: "Update Customer",
-                  path: location.pathname,
-                  active: true,
-                },
+                { label: "Users", path: "/users" },
+                { label: "Update User", path: location.pathname, active: true },
               ]}
             />
           </div>
@@ -147,7 +119,7 @@ const UpdateCustomer = () => {
               <div className="col-md-6">
                 <div className="card card-primary card-outline mb-4">
                   <div className="card-header">
-                    <h4 className="card-title">Update Customer</h4>
+                    <h4 className="card-title">Update User</h4>
                   </div>
                   <div className="card-body">
                     {alert.message && (
@@ -171,7 +143,7 @@ const UpdateCustomer = () => {
 
                       <div className="mb-3">
                         <label htmlFor="email" className="form-label">
-                          Email address
+                          Email
                         </label>
                         <input
                           type="email"
@@ -179,19 +151,45 @@ const UpdateCustomer = () => {
                           id="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
+                          disabled={true}
                         />
                       </div>
 
-                      <div className="mb-3">
-                        <label htmlFor="mobile" className="form-label">
-                          Mobile Number
+                      <div className="mb-3 position-relative">
+                        <label htmlFor="password" className="form-label">
+                          Password
                         </label>
-                        <input
+                        <div className="input-group">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            className="form-control"
+                            id="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                          />
+                          <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            <i className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="mb-3">
+                        <label htmlFor="role" className="form-label">
+                          Role
+                        </label>
+                        <select
                           className="form-control"
-                          id="mobile"
-                          value={mobile}
-                          onChange={(e) => setMobile(e.target.value)}
-                        />
+                          id="role"
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                        >
+                          <option value="USER">User</option>
+                          <option value="ADMIN">Admin</option>
+                        </select>
                       </div>
 
                       <div className="card-footer d-flex justify-content-center mt-2">
@@ -216,4 +214,4 @@ const UpdateCustomer = () => {
   );
 };
 
-export default UpdateCustomer;
+export default UpdateUser;

@@ -38,7 +38,20 @@ function Login() {
       navigate("/dashboard");
     } catch (err) {
       console.error("Login Error:", err);
-      setError(err.response?.data?.message || "Invalid credentials");
+
+      let errorMessage = "An error occurred. Please try again.";
+
+      if (err.response) {
+        if (typeof err.response.data === "string") {
+          // Plain text error message from backend
+          errorMessage = err.response.data;
+        } else if (err.response.data?.message) {
+          // JSON error message
+          errorMessage = err.response.data.message;
+        }
+      }
+
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

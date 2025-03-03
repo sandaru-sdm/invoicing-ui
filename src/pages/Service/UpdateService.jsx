@@ -6,7 +6,7 @@ import Sidebar from "../../components/SideBar.jsx";
 import Footer from "../../components/Footer.jsx";
 import Breadcrumbs from "../../components/Breadcrumbs.jsx";
 
-const UpdateDetail = () => {
+const UpdateService = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const UpdateDetail = () => {
     const fetchDetail = async () => {
       try {
         const response = await axios.get(
-          `${apiBaseUrl}/test/api/detail/id/${id}`,
+          `${apiBaseUrl}/test/api/service/id/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,18 +39,18 @@ const UpdateDetail = () => {
             },
           }
         );
-        const detail = response.data;
-        console.log(detail);
+        const service = response.data;
+        console.log(service);
 
-        setName(detail.name);
+        setName(service.name);
       } catch (error) {
-        console.error("Error fetching detail:", error);
+        console.error("Error fetching service:", error);
         setAlert({
           type: "danger",
-          message: "Failed to fetch detail data.",
+          message: "Failed to fetch service data.",
         });
         setTimeout(() => {
-          navigate("/details");
+          navigate("/services");
         }, 2000);
       }
     };
@@ -63,13 +63,13 @@ const UpdateDetail = () => {
     setSubmit(true);
 
     if (!name.trim()) {
-      setAlert({ type: "danger", message: "Detail Name is required." });
+      setAlert({ type: "danger", message: "Service Name is required." });
       return;
     }
 
     try {
       const response = await axios.put(
-        `${apiBaseUrl}/test/api/detail/` + id,
+        `${apiBaseUrl}/test/api/service/` + id,
         { name },
         {
           headers: {
@@ -80,14 +80,14 @@ const UpdateDetail = () => {
       );
 
       const successMessage =
-        response.data.message || "Detail updated successfully!";
+        response.data.message || "Service updated successfully!";
       setAlert({ type: "success", message: successMessage });
 
       setTimeout(() => {
-        navigate("/details");
+        navigate("/services");
       }, 2000);
     } catch (error) {
-      let errorMessage = "Failed to update Detail. Please try again.";
+      let errorMessage = "Failed to update Service. Please try again.";
       if (error.response) {
         errorMessage = error.response.data.message || errorMessage;
       }
@@ -104,12 +104,12 @@ const UpdateDetail = () => {
           <div className="mt-5 pt-3 col-md-9 ms-sm-auto col-lg-10 px-md-4">
             {/* Breadcrumbs Component */}
             <Breadcrumbs
-              title="Update Detail"
+              title="Update Service"
               breadcrumbs={[
                 { label: "Home", path: "/dashboard" },
-                { label: "Details", path: "/details" },
+                { label: "Services", path: "/services" },
                 {
-                  label: "Update Details",
+                  label: "Update Service",
                   path: location.pathname,
                   active: true,
                 },
@@ -122,7 +122,7 @@ const UpdateDetail = () => {
               <div className="col-md-6">
                 <div className="card card-primary card-outline mb-4">
                   <div className="card-header">
-                    <h4 className="card-title">Update Detail</h4>
+                    <h4 className="card-title">Update Service</h4>
                   </div>
                   <div className="card-body">
                     {alert.message && (
@@ -134,7 +134,7 @@ const UpdateDetail = () => {
                     <form onSubmit={handleSubmit}>
                       <div className="mb-3">
                         <label htmlFor="name" className="form-label">
-                          Detail Name
+                          Service Name
                         </label>
                         <input
                           className="form-control"
@@ -166,4 +166,4 @@ const UpdateDetail = () => {
   );
 };
 
-export default UpdateDetail;
+export default UpdateService;

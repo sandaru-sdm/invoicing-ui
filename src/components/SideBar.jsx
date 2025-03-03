@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Sidebar = () => {
-  // const location = useLocation();
+  const userRole = localStorage.getItem("role"); // Get the user role from localStorage
 
   return (
     <nav
@@ -17,7 +17,6 @@ const Sidebar = () => {
             <NavLink
               className="nav-link"
               to="/dashboard"
-              activeClassName="active"
               style={({ isActive }) => ({
                 color: isActive ? "green" : "",
               })}
@@ -26,24 +25,36 @@ const Sidebar = () => {
             </NavLink>
           </li>
 
+          {(userRole === "SUPER_ADMIN" || userRole === "ADMIN") && (
+            <li className="nav-item fs-5 btn btn-outline-success m-2">
+              <NavLink
+                className="nav-link"
+                to="/users"
+                style={({ isActive }) => ({
+                  color: isActive ? "green" : "",
+                })}
+              >
+                Users
+              </NavLink>
+            </li>
+          )}
+
           <li className="nav-item fs-5 btn btn-outline-success m-2">
             <NavLink
               className="nav-link"
               to="/customer"
-              activeClassName="active"
               style={({ isActive }) => ({
                 color: isActive ? "green" : "",
               })}
             >
               Customers
             </NavLink>
-          </li>  
+          </li>
 
           <li className="nav-item fs-5 btn btn-outline-success m-2">
             <NavLink
               className="nav-link"
               to="/payment-type"
-              activeClassName="active"
               style={({ isActive }) => ({
                 color: isActive ? "green" : "",
               })}
@@ -55,8 +66,19 @@ const Sidebar = () => {
           <li className="nav-item fs-5 btn btn-outline-success m-2">
             <NavLink
               className="nav-link"
+              to="/services"
+              style={({ isActive }) => ({
+                color: isActive ? "green" : "",
+              })}
+            >
+              Services
+            </NavLink>
+          </li>
+
+          <li className="nav-item fs-5 btn btn-outline-success m-2">
+            <NavLink
+              className="nav-link"
               to="/details"
-              activeClassName="active"
               style={({ isActive }) => ({
                 color: isActive ? "green" : "",
               })}
@@ -64,7 +86,6 @@ const Sidebar = () => {
               Details
             </NavLink>
           </li>
-
         </ul>
       </div>
     </nav>

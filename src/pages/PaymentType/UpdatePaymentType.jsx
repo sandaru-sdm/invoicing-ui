@@ -13,6 +13,8 @@ const UpdatePaymentType = () => {
   const [name, setName] = useState("");
   const [alert, setAlert] = useState({ type: "", message: "" });
 
+  const [submit, setSubmit] = useState(false);
+
   const location = useLocation();
 
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
@@ -55,6 +57,7 @@ const UpdatePaymentType = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmit(true);
 
     if (!name.trim()) {
       setAlert({ type: "danger", message: "Payment Type Name is required." });
@@ -142,6 +145,7 @@ const UpdatePaymentType = () => {
                         <button
                           type="submit"
                           className="btn btn-primary col-sm-12 mt-3"
+                          disabled={submit}
                         >
                           Submit
                         </button>
