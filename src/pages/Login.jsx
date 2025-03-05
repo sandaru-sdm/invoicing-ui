@@ -33,6 +33,7 @@ function Login() {
         throw new Error("Invalid API response");
       }
 
+      localStorage.setItem("id", response.data.userId);
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", response.data.userRole);
       navigate("/dashboard");

@@ -20,6 +20,8 @@ import UpdateService from "./pages/Service/UpdateService";
 import UserRegister from "./pages/User/UserRegister";
 import Users from "./pages/User/Users";
 import UpdateUser from "./pages/User/UpdateUser";
+import Profile from "./pages/User/Profile";
+import UpdateProfile from "./pages/User/UpdateProfile";
 
 function App() {
   return (
@@ -51,6 +53,9 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/add-user" element={<UserRegister />} />
         <Route path="/update-user/:id" element={<UpdateUser />} />  
+
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/update-profile" element={<UpdateProfile />} />
 
       </Routes>
     </Router>
