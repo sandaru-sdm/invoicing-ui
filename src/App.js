@@ -22,6 +22,8 @@ import Users from "./pages/User/Users";
 import UpdateUser from "./pages/User/UpdateUser";
 import Profile from "./pages/User/Profile";
 import UpdateProfile from "./pages/User/UpdateProfile";
+import Invoice from "./pages/Invoice/Invoice";
+import AddInvoice from "./pages/Invoice/AddInvoice";
 
 function App() {
   return (
@@ -56,6 +58,9 @@ function App() {
 
         <Route path="/profile" element={<Profile />} />
         <Route path="/update-profile" element={<UpdateProfile />} />
+
+        <Route path="/invoice" element={<Invoice />} />
+        <Route path="/add-invoice" element={<AddInvoice />} />
 
       </Routes>
     </Router>
