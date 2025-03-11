@@ -5,16 +5,17 @@ import "./style/dashboard.css";
 import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
 import Footer from "../components/Footer";
+import Widgets from "./Dashboard/Widgets";
 
 const Dashboard = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Retrieve token
+    const token = localStorage.getItem("token"); 
 
     if (!token) {
       console.error("No token found. Redirecting to login...");
-      navigate("/login"); // Redirect to login page if token is missing
+      navigate("/login");
     }
   }, [navigate]);
 
@@ -24,8 +25,9 @@ const Dashboard = () => {
       <div className="container-fluid">
         <div className="row">
           <Sidebar />
-          <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
-            <h1 className="h2 mt-4">Dashboard</h1>
+          <main className="col-md-9 ms-sm-auto col-lg-10 mt-5">
+            <h1 className="h2 mt-4 mb-4">Dashboard</h1>
+            <Widgets/>
             <Footer />
           </main>
         </div>

@@ -128,9 +128,9 @@ const AddInvoice = () => {
       setTimeout(() => setAlert({ ...alert, show: false }), 2000);
       return;
     }
-
+  
     const calculatedBalance = payment - grandTotal;
-
+  
     const invoiceData = {
       customerId: selectedCustomer.value,
       invoiceItems: items,
@@ -138,16 +138,26 @@ const AddInvoice = () => {
       paymentAmount: payment,
       balance: calculatedBalance,
     };
-
+  
     try {
-      await axios.post(`${apiBaseUrl}/test/api/invoices`, invoiceData, axiosConfig);
+      const response = await axios.post(
+        `${apiBaseUrl}/test/api/invoices`,
+        invoiceData,
+        axiosConfig
+      );
+  
+      const invoiceId = response.data; // Get the last entered invoice ID
       setAlert({
         type: "success",
         message: "Invoice created successfully!",
         show: true,
       });
-      setTimeout(() => setAlert({ ...alert, show: false }), 2000);
-      navigate("/invoice");
+  
+      setTimeout(() => setAlert({ ...alert, show: false }), 1000);
+      
+      // Redirect to the View Invoice page
+      navigate(`/view-invoice/${invoiceId}`);
+  
     } catch (error) {
       console.error("Error creating invoice:", error.response?.status, error.response?.data);
       setAlert({
@@ -158,6 +168,7 @@ const AddInvoice = () => {
       setTimeout(() => setAlert({ ...alert, show: false }), 2000);
     }
   };
+  
 
   return (
     <div>

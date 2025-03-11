@@ -10,11 +10,14 @@ const DataTableComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dataTableRef.current = $(tableRef.current).DataTable();
+    if (!$.fn.DataTable.isDataTable(tableRef.current)) {
+      dataTableRef.current = $(tableRef.current).DataTable();
+    }
 
     return () => {
       if (dataTableRef.current) {
         dataTableRef.current.destroy();
+        dataTableRef.current = null;
       }
     };
   }, []);
@@ -42,39 +45,38 @@ const DataTableComponent = () => {
         const invoices = await response.json();
 
         if (dataTableRef.current) {
-          dataTableRef.current.clear();
+          dataTableRef.current.clear().draw(); // Clear DataTable safely
 
           invoices.forEach((invoice) => {
-            let invoiceTotalAmount = 0; 
+            let invoiceTotalAmount = 0;
 
             const invoiceDetails = invoice.invoiceItems
               .map((item) => {
-                let totalAmount = item.rate * item.qty; 
+                let totalAmount = item.rate * item.qty;
                 if (item.height && item.width) {
-                  totalAmount = item.height * item.width * item.rate * item.qty; 
+                  totalAmount = item.height * item.width * item.rate * item.qty;
                 }
 
-                invoiceTotalAmount += totalAmount; 
-
-                const height = item.height ? `${item.height}` : "N/A";
-                const width = item.width ? `${item.width}` : "N/A";
+                invoiceTotalAmount += totalAmount;
 
                 return `
                 <tr>
                   <td>${item.serviceName}</td>
                   <td>${item.detailName}</td>
-                  <td>${height}</td>
-                  <td>${width}</td>
+                  <td>${item.height || "N/A"}</td>
+                  <td>${item.width || "N/A"}</td>
                   <td>${item.rate}</td>
                   <td>${item.qty}</td>
-                  <td>${totalAmount}</td> <!-- Show the calculated total -->
+                  <td>${totalAmount}</td>
                 </tr>
               `;
               })
               .join("");
 
+            const invoiceIdColumn = `<a href="/view-invoice/${invoice.id}">${invoice.invoiceId}</a>`;
+
             dataTableRef.current.row.add([
-              invoice.invoiceId,
+              invoiceIdColumn,
               invoice.invoiceDate,
               invoice.customerName,
               `<table class="table table-bordered invoice-details">

@@ -24,6 +24,7 @@ import Profile from "./pages/User/Profile";
 import UpdateProfile from "./pages/User/UpdateProfile";
 import Invoice from "./pages/Invoice/Invoice";
 import AddInvoice from "./pages/Invoice/AddInvoice";
+import ViewInvoice from "./pages/Invoice/ViewInvoice";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
 
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/add-invoice" element={<AddInvoice />} />
+        <Route path="/view-invoice/:id" element={<ViewInvoice />} />
 
       </Routes>
     </Router>
