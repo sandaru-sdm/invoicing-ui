@@ -242,7 +242,7 @@ function ViewInvoice() {
                       <br />
                       Phone 3: (+94) 33 22 18 294
                       <br />
-                      Email: simpleidea@gmail.com
+                      Email: simpleidealk@gmail.com
                     </address>
                   </div>
                 </div>
@@ -257,7 +257,7 @@ function ViewInvoice() {
                   <div className="col-md-6">
                     <h4>From</h4>
                     <address>
-                      <strong>Simple Idea</strong>
+                      <strong>Simple Idea,</strong>
                       <br />
                       131/1, Colombo - Kandy Road,
                       <br />
@@ -267,7 +267,7 @@ function ViewInvoice() {
                       <br />
                       Phone: (+94) 71 20 64 592
                       <br />
-                      Email: simpleidea@gmail.com
+                      Email: simpleidealk@gmail.com
                     </address>
                   </div>
                   <div className="col-md-6 text-end">

@@ -25,13 +25,14 @@ import UpdateProfile from "./pages/User/UpdateProfile";
 import Invoice from "./pages/Invoice/Invoice";
 import AddInvoice from "./pages/Invoice/AddInvoice";
 import ViewInvoice from "./pages/Invoice/ViewInvoice";
+import Frontend from "./pages/Front/Frontend";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Frontend />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/email-notification" element={<EmailNotification />} />
@@ -43,19 +44,22 @@ function App() {
 
         <Route path="/payment-type" element={<PaymentType />} />
         <Route path="/add-payment-type" element={<AddPaymentType />} />
-        <Route path="/update-payment-type/:id" element={<UpdatePaymentType />} />      
+        <Route
+          path="/update-payment-type/:id"
+          element={<UpdatePaymentType />}
+        />
 
         <Route path="/details" element={<Details />} />
         <Route path="/add-detail" element={<AddDetail />} />
-        <Route path="/update-detail/:id" element={<UpdateDetail />} />    
+        <Route path="/update-detail/:id" element={<UpdateDetail />} />
 
         <Route path="/services" element={<Services />} />
         <Route path="/add-service" element={<AddService />} />
-        <Route path="/update-service/:id" element={<UpdateService />} />   
+        <Route path="/update-service/:id" element={<UpdateService />} />
 
         <Route path="/users" element={<Users />} />
         <Route path="/add-user" element={<UserRegister />} />
-        <Route path="/update-user/:id" element={<UpdateUser />} />  
+        <Route path="/update-user/:id" element={<UpdateUser />} />
 
         <Route path="/profile" element={<Profile />} />
         <Route path="/update-profile" element={<UpdateProfile />} />
@@ -63,7 +67,6 @@ function App() {
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/add-invoice" element={<AddInvoice />} />
         <Route path="/view-invoice/:id" element={<ViewInvoice />} />
-
       </Routes>
     </Router>
   );

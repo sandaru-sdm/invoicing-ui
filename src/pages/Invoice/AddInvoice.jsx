@@ -146,18 +146,20 @@ const AddInvoice = () => {
         axiosConfig
       );
   
-      const invoiceId = response.data; // Get the last entered invoice ID
+      const invoiceId = response.data;
       setAlert({
         type: "success",
         message: "Invoice created successfully!",
         show: true,
       });
   
-      setTimeout(() => setAlert({ ...alert, show: false }), 1000);
-      
-      // Redirect to the View Invoice page
-      navigate(`/view-invoice/${invoiceId}`);
+      setTimeout(() => {
+        setAlert({ ...alert, show: false });
   
+        window.open(`/view-invoice/${invoiceId}`, "_blank");
+
+        navigate("/invoice");
+      }, 1000);
     } catch (error) {
       console.error("Error creating invoice:", error.response?.status, error.response?.data);
       setAlert({
@@ -168,7 +170,6 @@ const AddInvoice = () => {
       setTimeout(() => setAlert({ ...alert, show: false }), 2000);
     }
   };
-  
 
   return (
     <div>

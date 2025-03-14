@@ -73,7 +73,7 @@ const DataTableComponent = () => {
               })
               .join("");
 
-            const invoiceIdColumn = `<a href="/view-invoice/${invoice.id}">${invoice.invoiceId}</a>`;
+            const invoiceIdColumn = `<a href="/view-invoice/${invoice.id}" target="_blank" rel="noopener noreferrer">${invoice.invoiceId}</a>`;
 
             dataTableRef.current.row.add([
               invoiceIdColumn,
