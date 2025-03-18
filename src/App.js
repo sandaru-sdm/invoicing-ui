@@ -25,13 +25,13 @@ import UpdateProfile from "./pages/User/UpdateProfile";
 import Invoice from "./pages/Invoice/Invoice";
 import AddInvoice from "./pages/Invoice/AddInvoice";
 import ViewInvoice from "./pages/Invoice/ViewInvoice";
-import Frontend from "./pages/Front/Frontend";
+import SimpleIdeaWebsite from "./pages/Front/SimpleIdeaWebsite";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Frontend />} />
+        <Route path="/" element={<SimpleIdeaWebsite />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
