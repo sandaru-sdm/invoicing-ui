@@ -44,10 +44,8 @@ function Login() {
 
       if (err.response) {
         if (typeof err.response.data === "string") {
-          // Plain text error message from backend
           errorMessage = err.response.data;
         } else if (err.response.data?.message) {
-          // JSON error message
           errorMessage = err.response.data.message;
         }
       }
