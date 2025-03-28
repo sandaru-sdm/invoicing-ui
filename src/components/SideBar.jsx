@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Sidebar = () => {
-  const userRole = localStorage.getItem("role"); // Get the user role from localStorage
+  const userRole = localStorage.getItem("role");
 
   return (
     <nav
