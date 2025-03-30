@@ -17,7 +17,7 @@ const UpdateUser = () => {
   const [role, setRole] = useState("");
   const [alert, setAlert] = useState({ type: "", message: "" });
   const [submit, setSubmit] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // New state
+  const [showPassword, setShowPassword] = useState(false);
 
   const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
   const token = localStorage.getItem("token");
