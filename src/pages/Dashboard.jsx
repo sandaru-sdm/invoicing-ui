@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./style/dashboard.css";
 import Header from "../components/Header";
 import Sidebar from "../components/SideBar";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import Widgets from "./Dashboard/Widgets";
 
 const Dashboard = () => {
@@ -28,7 +28,7 @@ const Dashboard = () => {
           <main className="col-md-9 ms-sm-auto col-lg-10 mt-5">
             <h1 className="h2 mt-4 mb-4">Dashboard</h1>
             <Widgets/>
-            <Footer />
+            {/* <Footer /> */}
           </main>
         </div>
       </div>

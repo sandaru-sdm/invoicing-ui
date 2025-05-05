@@ -11,16 +11,12 @@ import {
   Form,
   Carousel,
 } from "react-bootstrap";
-import logo from "../../assets/logo.jpg";
-import branding from "../../assets/branding.jpg";
-import digital from "../../assets/digitalprinting.jpg";
 import image1 from "../../assets/image1.jpg";
-import image2 from "../../assets/image2.jpg";
-import image3 from "../../assets/image3.jpg";
-import image4 from "../../assets/image4.jpg";
-import image8 from "../../assets/image8.jpg";
-import image9 from "../../assets/image9.jpg";
-import image10 from "../../assets/image10.jpg";
+import image2 from "../../assets/image2.png";
+import image3 from "../../assets/image3.png";
+import image8 from "../../assets/image8.png";
+import image9 from "../../assets/image9.png";
+import image11 from "../../assets/image11.jpg";
 import image5 from "../../assets/image5.jpg";
 import image6 from "../../assets/image6.jpg";
 import image7 from "../../assets/image7.jpg";
@@ -78,7 +74,7 @@ function SimpleIdeaWebsite() {
       description:
         "Modern, responsive web design services that ensure your digital presence matches your brand identity.",
       icon: "bi bi-laptop-fill",
-      image: image5,
+      image: image11,
     },
   ];
 
@@ -88,25 +84,19 @@ function SimpleIdeaWebsite() {
       id: 1,
       title: "Urban Coffee Branding",
       category: "Branding",
-      image: image1,
-    },
-    {
-      id: 2,
-      title: "Tech Startup Website",
-      category: "Web Design",
       image: image3,
     },
     {
-      id: 3,
-      title: "Fashion Catalog",
-      category: "Digital Printing",
-      image: image2,
+      id: 2,
+      title: "Juice Bar Website",
+      category: "Web Design",
+      image: image1,
     },
     {
-      id: 4,
-      title: "Corporate Identity Package",
-      category: "Branding",
-      image: image1,
+      id: 3,
+      title: "Camping Arts",
+      category: "Digital Printing",
+      image: image2,
     },
   ];
 
@@ -174,6 +164,7 @@ function SimpleIdeaWebsite() {
                   <Col lg={6} className="mb-4 mb-lg-0">
                     <h1 className="display-4 fw-bold mb-4">
                       Bringing Your <span className="text-primary">Ideas</span>{" "}
+                      <br/>
                       to Life
                     </h1>
                     <p className="lead mb-4">
