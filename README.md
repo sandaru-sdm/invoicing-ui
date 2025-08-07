@@ -75,6 +75,11 @@ Please follow consistent code formatting and naming conventions.
 
 ---
 
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
 ## Project Status
 In development – We're actively working on new features and improvements.
 
